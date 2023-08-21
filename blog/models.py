@@ -5,7 +5,7 @@ from django.db import models
 class Blog(models.Model):
     title = models.CharField(max_length=200, verbose_name='Blog Title')
     content = models.TextField(verbose_name='Blog Content', blank=True)
-    view_counts = models.PositiveIntegerField(null = True) 
+    view_counts = models.PositiveIntegerField(default = 0) 
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     
@@ -15,6 +15,7 @@ class Blog(models.Model):
     class Meta:
         verbose_name = 'Content'
         verbose_name_plural = 'My Contents'
+        ordering = ['-view_counts','-updated_on']
     
 class Email(models.Model):
     name = models.CharField(max_length=100)

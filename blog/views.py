@@ -1,7 +1,37 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
-def home_view(request):
-    return render(request, 'blog/home.html')
+from .forms import BlogForm
+from .models import Blog
 
 def blog_view(request):
-    return render(request, 'blog/blog.html')
+    blogs = Blog.objects.all()
+    context = {
+        'blogs': blogs
+    }
+    return render(request, 'blog/blog.html', context)
+
+def blog_detail(request, id):
+    blog = Blog.objects.get(id = id)
+    blog.view_counts += 1
+    blog.save()
+    context = {
+        'blog': blog
+    }
+    return render(request, 'blog/blog_details.html', context)
+
+def create_blog(request):
+    form = BlogForm()
+    if request.method == 'POST':
+        form = BlogForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("blog:all_blogs")
+    else:
+        form = BlogForm()
+    
+    context = {
+        'form': form
+    }           
+    
+    return render(request, 'blog/blog_form.html', context) 
+    

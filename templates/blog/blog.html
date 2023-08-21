@@ -7,6 +7,21 @@
     <title>Blog</title>
 </head>
 <body>
-    <h1>This is the blog page</h1>
+    <h1 style = 'color:blue'>
+        Latest ML Blog Posts 
+    </h1>
+    <a href = "{% url 'blog:create_blog'%}">
+        <button style = 'border:ridge red; margin: 1rem; padding: 1rem; border-radius: 10px'>Create Blog</button>
+    </a>
+    {% for blog in blogs %} 
+        <div style = 'border:ridge red; margin: 1rem; padding: 1rem'>
+            <h3 style = color:blue>Viewed: {{blog.view_counts}}</h3>
+            <h1 style = color:red> Title: {{blog.title}} </h1>
+            <p>Updated on: {{blog.updated_on.time}}</p> 
+            <p>Created on: {{blog.created_on.date}}</p> 
+            <a href = "{% url 'blog:blog_details' blog.id %}">Visit Page</a>
+        </div>
+        
+    {% endfor %}
 </body>
 </html>
