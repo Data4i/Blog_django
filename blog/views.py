@@ -10,8 +10,8 @@ def blog_view(request):
     }
     return render(request, 'blog/blog.html', context)
 
-def blog_detail(request, id):
-    blog = Blog.objects.get(id = id)
+def blog_detail(request, slug):
+    blog = Blog.objects.get(slug = slug)
     blog.view_counts += 1
     blog.save()
     context = {
@@ -35,8 +35,8 @@ def create_blog(request):
     
     return render(request, 'blog/blog_form.html', context) 
 
-def update_blog(request, id):
-    blog = Blog.objects.get(id = id)
+def update_blog(request, slug):
+    blog = Blog.objects.get(slug = slug)
     form = BlogForm(instance = blog)
     if request.method == 'POST':
         form = BlogForm(request.POST, instance = blog)
