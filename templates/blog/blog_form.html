@@ -10,8 +10,8 @@
 
     <form action= "" method = 'POST'>
         {% csrf_token %}
-        {{form.title}}
-        {{form.content}}
+        {{form.as_p}}
+        {% comment %} {{form.content}} {% endcomment %}
         <input type="submit" value="Submit">
     </form>
 </body>
