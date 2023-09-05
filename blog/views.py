@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 
 from .forms import BlogForm
-from .models import Blog
+from .models import Blog, Category
 
 def blog_view(request):
     blogs = Blog.objects.all()
@@ -18,6 +18,14 @@ def blog_detail(request, slug):
         'blog': blog
     }
     return render(request, 'blog/blog_details.html', context)
+
+def all_categories(request):
+    categories = Category.objects.all()
+    context = {
+        'categories': categories
+    }
+    
+    return render(request, 'blog/categories.html', context)
 
 def create_blog(request):
     form = BlogForm()
