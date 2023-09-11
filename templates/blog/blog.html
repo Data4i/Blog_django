@@ -2,22 +2,32 @@
 
 {% block content %}
 
-<h1>
-    Latest ML Blog Posts 
-</h1>
-<a href = "{% url 'blog:create_blog'%}">
-    <button>Create Blog</button>
-</a>
-{% for blog in blogs %} 
-    <div>
-        <h3>Viewed: {{blog.view_counts}}</h3>
-        <h1> Title: {{blog.title}} </h1>
-        <p>Updated on: {{blog.updated_on.time}}</p> 
-        <p>Created on: {{blog.created_on.date}}</p> 
-        <a href = "{% url 'blog:blog_details' blog.slug %}">Visit Page</a>
-        <a href = "{% url 'blog:update_blog' blog.slug %}">Update Blog</a>
+<div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <h1>Latest Blog Posts</h1>
+      </div>
     </div>
+</div>
+  
+<div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for blog in blogs %} 
+        <div class="col">
+          <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{blog.title|title}}</h5>
+                <p class="card-text">{{blog.content|truncatewords:20}}</p>
+                <a class="btn btn-primary" href = "{% url 'blog:blog_details' blog.slug %}">View Blog</a>
+                <a style = 'background-color: green;' class="btn btn-secondary" href = "{% url 'blog:update_blog' blog.slug %}">Update Blog</a>
+                <a style = 'background-color: red;' class="btn btn-secondary" href = "{% url 'blog:delete_blog' blog.slug %}">Delete Blog</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+
     
-{% endfor %}
 
 {% endblock content %}

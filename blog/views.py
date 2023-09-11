@@ -56,3 +56,8 @@ def update_blog(request, slug):
     }
     
     return render(request, 'blog/blog_form.html', context)       
+
+def delete_blog(request, slug):
+    blog = Blog.objects.get(slug = slug)
+    blog.delete()
+    return redirect('blog:all_blogs')

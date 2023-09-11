@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import blog_detail, blog_view, create_blog, update_blog, all_categories
+from .views import blog_detail, blog_view, create_blog, update_blog, all_categories, delete_blog
 
 app_name = 'blog'
 
@@ -8,5 +8,6 @@ urlpatterns = [
     path('create', create_blog, name = 'create_blog'),
     path('update/<str:slug>/', update_blog, name = 'update_blog'),
     path('blog_detail/<str:slug>/', blog_detail, name='blog_details'),
-    path('all_cats/', all_categories, name = 'categories')
+    path('all_cats/', all_categories, name = 'categories'),
+    path('delete_blog/<str:slug>', delete_blog, name = 'delete_blog')
 ]

@@ -4,8 +4,8 @@ from django.utils.text import slugify
 # Create your models here.
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=200, blank=True)
+    name = models.CharField(max_length=100, unique = True)
+    slug = models.SlugField(max_length=200, blank=True, unique = True)
     
     def __str__(self) -> str:
         return f'{self.name}'
@@ -20,9 +20,9 @@ class Category(models.Model):
         return super().save(args, kwargs)
 
 class Blog(models.Model):
-    title = models.CharField(max_length=200, verbose_name='Blog Title')
+    title = models.CharField(max_length=200, verbose_name='Blog Title', unique=True)
     categories = models.ForeignKey(Category, on_delete = models.CASCADE)
-    slug = models.SlugField(max_length=300, blank = True)
+    slug = models.SlugField(max_length=300, blank = True, unique=True)
     content = models.TextField(verbose_name='Blog Content', blank=True)
     view_counts = models.PositiveIntegerField(default = 0) 
     created_on = models.DateTimeField(auto_now_add=True)
