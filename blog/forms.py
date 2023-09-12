@@ -5,8 +5,5 @@ from .models import Blog
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ('title', 'content')
+        fields = ('title', 'categories', 'content')
         
-# class BlogForm(forms.Form):
-    # title = forms.CharField()
-    # content = forms.TextInput()

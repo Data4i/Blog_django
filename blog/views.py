@@ -5,10 +5,21 @@ from .models import Blog, Category
 
 def blog_view(request):
     blogs = Blog.objects.all()
+    # categories = Category.objects.all()
+    context = {
+        'blogs': blogs,
+        # 'categories': categories
+    }
+    return render(request, 'blog/blog.html', context)
+
+def filter_category(request, slug):
+    category = Category.objects.get(slug = slug)
+    blogs = Blog.objects.filter(categories = category)
     context = {
         'blogs': blogs
     }
-    return render(request, 'blog/blog.html', context)
+    
+    return render(request, 'blog/filtered-blog.html', context)
 
 def blog_detail(request, slug):
     blog = Blog.objects.get(slug = slug)
@@ -18,14 +29,6 @@ def blog_detail(request, slug):
         'blog': blog
     }
     return render(request, 'blog/blog_details.html', context)
-
-def all_categories(request):
-    categories = Category.objects.all()
-    context = {
-        'categories': categories
-    }
-    
-    return render(request, 'blog/categories.html', context)
 
 def create_blog(request):
     form = BlogForm()
