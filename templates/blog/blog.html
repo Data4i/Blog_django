@@ -14,14 +14,18 @@
         {% for blog in blogs %} 
         <div class="col">
           <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{blog.title|title}}</h5>
-                <p class="card-text">{{blog.content|truncatewords:20}}</p>
-                <a class="btn btn-primary" href = "{% url 'blog:blog_details' blog.slug %}">View Blog</a>
-                <a style = 'background-color: green;' class="btn btn-secondary" href = "{% url 'blog:update_blog' blog.slug %}">Update Blog</a>
-                <a style = 'background-color: red;' class="btn btn-secondary" href = "{% url 'blog:delete_blog' blog.slug %}">Delete Blog</a>
-            </div>
+            {% if blog.image %}
+              <img src="{{blog.image.url}}"  class="card-img-top" alt="{{blog.title}}">
+            {% else %}
+              <img src="" class="card-img-top" alt="{{blog.title}}">
+            {% endif %}
+              <div class="card-body">
+                  <h5 class="card-title">{{blog.title|title}}</h5>
+                  <p class="card-text">{{blog.content|truncatewords:20}}</p>
+                  <a class="btn btn-primary" href = "{% url 'blog:blog_details' blog.slug %}">View Blog</a>
+                  <a style = 'background-color: green;' class="btn btn-secondary" href = "{% url 'blog:update_blog' blog.slug %}">Update Blog</a>
+                  <a style = 'background-color: red;' class="btn btn-secondary" href = "{% url 'blog:delete_blog' blog.slug %}">Delete Blog</a>
+              </div>
           </div>
         </div>
         {% endfor %}
