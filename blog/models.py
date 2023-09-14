@@ -23,6 +23,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=200, verbose_name='Blog Title', unique=True)
     categories = models.ForeignKey(Category, on_delete = models.CASCADE)
     slug = models.SlugField(max_length=300, blank = True, unique=True)
+    image = models.ImageField(verbose_name='blog_image', blank=True)
     content = models.TextField(verbose_name='Blog Content', blank=True)
     view_counts = models.PositiveIntegerField(default = 0) 
     created_on = models.DateTimeField(auto_now_add=True)
@@ -39,4 +40,4 @@ class Blog(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-        return super().save(args, kwargs)
+        return super().save(*args, **kwargs)

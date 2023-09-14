@@ -33,7 +33,7 @@ def blog_detail(request, slug):
 def create_blog(request):
     form = BlogForm()
     if request.method == 'POST':
-        form = BlogForm(request.POST)
+        form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect("blog:all_blogs")
@@ -50,7 +50,7 @@ def update_blog(request, slug):
     blog = Blog.objects.get(slug = slug)
     form = BlogForm(instance = blog)
     if request.method == 'POST':
-        form = BlogForm(request.POST, instance = blog)
+        form = BlogForm(request.POST, request.FILES, instance = blog)
         if form.is_valid():
             form.save()
             return redirect('blog:all_blogs')
