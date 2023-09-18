@@ -1,4 +1,6 @@
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
+
 
 from .forms import BlogForm
 from .models import Blog, Category
@@ -21,6 +23,7 @@ def filter_category(request, slug):
     
     return render(request, 'blog/filtered-blog.html', context)
 
+@login_required
 def blog_detail(request, slug):
     blog = Blog.objects.get(slug = slug)
     blog.view_counts += 1
