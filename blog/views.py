@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import BlogForm
 from .models import Blog, Category
 
+@login_required
 def blog_view(request):
     blogs = Blog.objects.all()
     # categories = Category.objects.all()
